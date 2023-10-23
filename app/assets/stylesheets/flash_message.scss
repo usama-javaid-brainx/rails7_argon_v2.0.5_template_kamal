@@ -1,0 +1,113 @@
+@import "variables";
+
+//animations
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+
+.animated {
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.fadeInDown {
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+}
+
+.fadeOutUp {
+  -webkit-animation-name: fadeOutUp;
+  animation-name: fadeOutUp;
+}
+
+//style
+
+.alert-notify {
+  display: flex !important;
+  width: calc(100% - 30px);
+  max-width: 600px;
+  padding-right: 80px;
+  color: rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  font-size: .875rem;
+
+  .alert-icon.ni {
+    position: relative;
+    top: 4px;
+  }
+
+  .close {
+    top: 1.5rem !important;
+    right: 1.5rem !important;
+    transform: translateY(-50%) !important;
+    transition: all .15s ease;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+}
+
+.alert-notify-danger {
+  border-color: $notify-danger-color !important;
+  background-color: $notify-danger-color !important;
+}
+
+.alert-notify-success {
+  border-color: $notify-success-color !important;
+  background-color: $notify-success-color !important;
+}
+
+.alert {
+  padding: 1rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 0.375rem;
+}
+
+.alert-icon {
+  font-size: 1.25rem !important;
+  display: inline-block;
+  margin-right: 0.7rem;
+  vertical-align: middle;
+}
+
+.alert-text {
+  display: inline-block;
+  vertical-align: middle;
+
+  .alert-title {
+    font-size: 1rem;
+    font-weight: 600;
+    display: block;
+  }
+}
+
+button.close {
+  cursor: pointer;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  color: rgba(255, 255, 255, 0.85) !important;
+}

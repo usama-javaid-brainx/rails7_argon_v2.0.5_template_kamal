@@ -1,0 +1,6 @@
+<% if flash.notice || flash.alert %>
+  <div id="flashMessages" class="d-none"
+       data-message="<%= flash.notice || flash.alert %>"
+       data-message-type="<%= flash.notice ? 'success' : 'danger' %>">
+  </div>
+<% end %>
