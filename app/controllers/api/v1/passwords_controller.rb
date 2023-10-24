@@ -27,10 +27,27 @@ module Api
         end
       end
 
+      def update
+        self.resource = resource_class.reset_password_by_token(resource_params)
+        yield resource if block_given?
+
+        if resource.errors.empty?
+          resource.unlock_access! if unlockable?(resource)
+          sign_in(resource_name, resource) if Devise.sign_in_after_reset_password
+          render_resource(resource)
+        else
+          render json: { error: resource.errors.full_messages.join(', ') }, status: :unprocessable_entity
+        end
+      end
+
       protected
 
       def after_resetting_password_path_for(_resources)
         api_root_path(notice: flash.notice)
+      end
+
+      def resource_params
+        params.permit(:password, :password_confirmation, :reset_password_token)
       end
     end
   end

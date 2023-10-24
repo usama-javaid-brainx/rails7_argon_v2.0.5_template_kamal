@@ -35,7 +35,8 @@ Rails.application.routes.draw do
           post 'login', to: 'sessions#create', as: :user_login
           post 'register', to: 'registrations#create', as: :user_register
           delete 'logout', to: 'sessions#destroy', as: :user_destroy_session
-          post 'reset_password', to: 'passwords#create', as: :user_create_password
+          post 'forgot_password', to: 'passwords#create', as: :user_create_password
+          put 'reset_password', to: 'passwords#update', as: :user_reset_password
           put 'update_password', to: 'users#update_password', as: :user_update_password
           put 'update', to: 'users#update', as: :user_update
           get 'profile', to: 'users#profile'
