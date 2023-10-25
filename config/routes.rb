@@ -40,8 +40,8 @@ Rails.application.routes.draw do
           put 'update_password', to: 'users#update_password', as: :user_update_password
           put 'update', to: 'users#update', as: :user_update
           get 'profile', to: 'users#profile'
+          get 'validate_token', to: 'token_validations#validate_token', as: :validate_token
         end
-        # get 'validate_token', to: 'token_validations#validate_token', as: :validate_token
       end
     end
   end

@@ -19,6 +19,13 @@ module Api
       end
 
       api :POST, "users/register.json", "User Signup"
+      example <<~EOS
+        HEADERS: {
+          "Content-Type": "application/json",
+          "app-platform":"react"
+          "app-version": "1"
+        }
+      EOS
       error 422, "Unprocessable Entity"
       param_group :user
       returns :user, code: 201
@@ -30,7 +37,7 @@ module Api
       private
 
       def sign_up_params
-        params.permit(:email, :password, :first_name, :last_name, :device_token, :app_platform, :app_version)
+        params.permit(:email, :password, :first_name, :last_name, :device_token, :app_platform, :app_version).merge(app_platform: request.headers["app-platform"], app_version: request.headers["app-version"])
       end
 
       def render_create_success

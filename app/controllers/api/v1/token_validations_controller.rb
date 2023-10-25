@@ -6,7 +6,7 @@ module Api
       protect_from_forgery with: :null_session
       include Api::Concerns::ActAsApiRequest
 
-      api :GET, "users/sign_in.json", "User login"
+      api :GET, "users/validate_token.json", "User token validations"
 
       def validate_token
         super

@@ -3,37 +3,57 @@
 module Api
   module V1
     class UsersController < Api::V1::ApiController
-      def_param_group(:current_user) do
+      def_param_group(:user) do
         property :id, Integer
-        property :active?, [true, false]
-        param :name, String, required: true
-        param :app_platform, String, desc: "Possible values: #{User.app_platforms.keys}", required: true
-        param :app_version, String, required: true
+        property :status, String, desc: "Possible values: #{User.statuses.keys}"
+        param :first_name, String
+        param :last_name, String
+        param :email_name, String
+        param :app_platform, String, desc: "Possible values: #{User.app_platforms.keys}"
+        param :app_version, String
         param :device_token, String
       end
 
       api :GET, "users/profile.json", "Reader Profile"
-      returns :current_user, desc: "a successful response"
+      example <<~EOS
+        HEADERS: {
+          "Content-Type": "application/json",
+          "authorization":"Bearer tona5csnjsknkdj788dssndsndjsnd"
+        }
+      EOS
+      returns :user, desc: "a successful response"
 
       def profile
-        render json: current_user, adapter: :json
+        render json: current_user
       end
 
-      api :PUT, "users/update", "Update user"
-      param :username, String, desc: "Username of user", required: false
-      param :email, String, desc: "Email of user", required: false
-      param :phone_number, String, desc: "Phone number of user", required: false
+      api :PUT, "users/update.json", "Update user"
+      example <<~EOS
+        HEADERS: {
+          "Content-Type": "application/json",
+          "authorization":"Bearer tona5csnjsknkdj788dssndsndjsnd"
+        }
+      EOS
+      param :first_name, String, desc: "First name of user", required: false
+      param :last_name, String, desc: "Last name of user", required: false
+      param :email, String, desc: "Phone number of user", required: false
       returns :current_user, desc: "a successful response"
 
       def update
         if current_user.update(user_params)
-          render json: current_user, adapter: :json
+          render json: current_user
         else
           render_error(422, current_user.errors.full_messages)
         end
       end
 
-      api :PUT, "user/change_password.json", "Change Password"
+      api :PUT, "users/update_password.json", "Change Password"
+      example <<~EOS
+        HEADERS: {
+          "Content-Type": "application/json",
+          "authorization":"Bearer tona5csnjsknkdj788dssndsndjsnd"
+        }
+      EOS
       param :current_password, String, required: true
       param :password, String, required: true
       param :password_confirmation, String, required: true
@@ -54,7 +74,7 @@ module Api
       private
 
       def user_params
-        params.permit(:first_name, :last_name, :email, :avatar, :phone_number)
+        params.permit(:first_name, :last_name, :email, :avatar, :profile_picture_url)
       end
 
       def password_resource_params

@@ -7,7 +7,6 @@ module Api
 
       def_param_group(:user) do
         property :id, Integer
-        property :uid, String
         param :status, String, desc: "Possible values: #{User.statuses.keys}"
         param :first_name, String, required: true
         param :last_name, String, required: true
@@ -20,7 +19,9 @@ module Api
       api :POST, "users/login.json", "User login"
       example <<~EOS
         HEADERS: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "app-platform":"react"
+          "app-version": "1"
         }
       EOS
       error 422, "Unprocessable Entity"
@@ -39,7 +40,12 @@ module Api
       end
 
       api :Delete, "users/logout.json", "User logout"
-
+      example <<~EOS
+        HEADERS: {
+          "Content-Type": "application/json",
+          "authorization":"Bearer tona5csnjsknkdj788dssndsndjsnd"
+        }
+      EOS
       def destroy
         # remove auth instance variables so that after_action does not run
         user = @resource ? remove_instance_variable(:@resource) : nil
