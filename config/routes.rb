@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   # Application routes
   root "products#index"
   post "checkout/create", to: "checkout#create"
+  resources :webhooks, only: [:create]
 
   # Routes for Apis
   namespace :api do

@@ -12,6 +12,7 @@
         <td class="p-3">Name</td>
         <td class="p-3">Price</td>
         <td class="p-3">Payment</td>
+        <td class="p-3">Sales</td>
         <td class="p-3">edit Product</td>
         <td class="p-3">show</td>
       </tr>
@@ -19,8 +20,9 @@
       <tbody>
       <tr class="p-2">
         <td class="p-3"><%= product.name%> </td>
-        <td class="p-3"><%= product.price%> </td>
+        <td class="p-3"><%= number_to_currency(product.price) %> </td>
         <td class="p-3"><%= button_to 'Buy now', checkout_create_path(id: product.id), remote: true%> </td>
+        <td class="p-3"><%= product.sales_count%> </td>
         <td class="p-3"><%= link_to "Edit", edit_product_path(product) %></td>
         <td class="p-3"><%= link_to "Show", product %></td>
       </tr>
