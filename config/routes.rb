@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :products
   # Kamal health check route
 
   get :up, to: 'home#up'
@@ -19,7 +20,8 @@ Rails.application.routes.draw do
   end
 
   # Application routes
-  root "home#landing_page"
+  root "products#index"
+  post "checkout/create", to: "checkout#create"
 
   # Routes for Apis
   namespace :api do
