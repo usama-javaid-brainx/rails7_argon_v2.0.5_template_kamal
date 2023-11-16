@@ -81,3 +81,4 @@ gem 'active_model_serializers', '~> 0.10.14'
 
 # For Documentation
 gem 'apipie-rails', "~> 0.8"
+gem 'stripe'
